@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Login / Signup</title>
+  <!-- Tailwind CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    .form-toggle:checked ~ .signup-form { display: block; }
+    .form-toggle:checked ~ .login-form  { display: none;  }
+  </style>
+</head>
+<body class="min-h-screen bg-gray-50 flex items-center justify-center">
+  <div class="w-full max-w-md p-8 space-y-6 bg-white rounded-xl shadow">
+    <!-- Toggle -->
+    <div class="flex justify-center space-x-4">
+      <label class="cursor-pointer">
+        <input type="radio" name="tab" class="form-toggle sr-only" checked>
+        <span class="px-4 py-2 rounded-t-lg bg-blue-500 text-white">Login</span>
+      </label>
+      <label class="cursor-pointer">
+        <input type="radio" name="tab" class="form-toggle sr-only">
+        <span class="px-4 py-2 rounded-t-lg bg-gray-200">Signup</span>
+      </label>
+    </div>
+
+    <!-- Login Form -->
+    <form class="login-form space-y-4">
+      <input type="email" placeholder="Email" required
+             class="w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-400"/>
+      <input type="password" placeholder="Password" required
+             class="w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-400"/>
+      <button type="submit"
+              class="w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-600">
+        Log in
+      </button>
+      <p class="text-center text-sm text-gray-500">
+        Don't have an account?
+        <label class="text-blue-500 cursor-pointer">
+          Signup
+        </label>
+      </p>
+    </form>
+
+    <!-- Signup Form -->
+    <form class="signup-form space-y-4" style="display:none;">
+      <input type="text" placeholder="Full Name" required
+             class="w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-400"/>
+      <input type="email" placeholder="Email" required
+             class="w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-400"/>
+      <input type="password" placeholder="Password" required
+             class="w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-400"/>
+      <button type="submit"
+              class="w-full bg-green-500 text-white py-2 rounded hover:bg-green-600">
+        Sign up
+      </button>
+      <p class="text-center text-sm text-gray-500">
+        Already have an account?
+        <label class="text-blue-500 cursor-pointer">
+          Login
+        </label>
+      </p>
+    </form>
+  </div>
+
+  <script>
+    // Tab toggle logic
+    const radios = document.querySelectorAll('.form-toggle');
+    const login = document.querySelector('.login-form');
+    const signup = document.querySelector('.signup-form');
+    const labels = document.querySelectorAll('label');
+    function updateForms() {
+      if (radios[0].checked) {
+        login.style.display = 'block';
+        signup.style.display = 'none';
+        labels[0].firstElementChild.nextSibling.classList.replace('bg-gray-200','bg-blue-500');
+        labels[1].firstElementChild.nextSibling.classList.replace('bg-blue-500','bg-gray-200');
+      } else {
+        login.style.display = 'none';
+        signup.style.display = 'block';
+        labels[1].firstElementChild.nextSibling.classList.replace('bg-gray-200','bg-blue-500');
+        labels[0].firstElementChild.nextSibling.classList.replace('bg-blue-500','bg-gray-200');
+      }
+    }
+    radios.forEach(r => r.addEventListener('change', updateForms));
+    labels.forEach(l => l.addEventListener('click', updateForms));
+  </script>
+</body>
+</html>
